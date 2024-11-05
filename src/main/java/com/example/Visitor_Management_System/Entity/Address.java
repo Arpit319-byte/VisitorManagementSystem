@@ -25,10 +25,10 @@ public class Address {
     private Long addressId;
 
     @Column(nullable = false)
-    private String l1;
+    private String line1;
 
     @Column(nullable = false)
-    private String l2;
+    private String line2;
 
     @Column(nullable = false)
     private String city;

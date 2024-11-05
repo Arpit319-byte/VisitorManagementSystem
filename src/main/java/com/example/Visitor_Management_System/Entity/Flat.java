@@ -27,7 +27,7 @@ public class Flat {
     private String flatNumber;
 
     @OneToOne
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "address_id",referencedColumnName = "addressId",nullable = false)
     private Address address;
 
     @CreatedDate

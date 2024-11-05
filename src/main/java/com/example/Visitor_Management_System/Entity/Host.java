@@ -20,18 +20,22 @@ import java.time.LocalDateTime;
 public class Host {
 
     @Id
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hostId;
 
     @Column(nullable = false)
     private String hostName;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String hostEmail;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String hostPhoneNumber;
+
+    @OneToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "addressId", nullable = false)
+    private Address address;
 
     @CreatedDate
     @Column(nullable = false)
