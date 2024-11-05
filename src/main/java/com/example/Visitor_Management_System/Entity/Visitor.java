@@ -37,6 +37,10 @@ public class Visitor {
     @Column(nullable = false)
     private String idProofNumber;
 
+    @OneToOne
+    @JoinColumn(name = "address_id",referencedColumnName = "addressId",nullable = false)
+    private Address address;
+
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createdAt;
