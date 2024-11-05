@@ -25,7 +25,7 @@ public class Host {
     private Long hostId;
 
     @Column(nullable = false)
-    private Long hostName;
+    private String hostName;
 
     @Column(nullable = false,unique = true)
     private String hostEmail;
