@@ -3,13 +3,14 @@ package com.example.Visitor_Management_System.Controller;
 
 import com.example.Visitor_Management_System.DTO.VisitorDTO;
 import com.example.Visitor_Management_System.Entity.Visit;
+import com.example.Visitor_Management_System.Service.VisitService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.awt.*;
 
 @RestController
