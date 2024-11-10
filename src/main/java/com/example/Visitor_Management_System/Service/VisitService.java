@@ -79,8 +79,8 @@ public class VisitService {
 
         private Visit mapToEntity(final VisitDTO visitDTO, final Visit visit){
             visit.setVisitId(visitDTO.getId());
-            visit.setHostId(visitDTO.getHostId());
-            visit.setVisitorId(visitDTO.getVisitorId());
+            visit.setVisitId(visitDTO.getHostId());
+            visit.setVisitId(visitDTO.getVisitorId());
             visit.setFlatNumber(visitDTO.getFlatNumber());
             visit.setPurposeOfVisit(visitDTO.getPurpose());
             visit.setVisitStatus(visitDTO.getVisitStatus());
