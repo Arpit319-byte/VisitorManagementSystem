@@ -17,6 +17,10 @@ public class VisitorDTO {
 
     @NotNull
     @Size(max=255)
+    private String email;
+
+    @NotNull
+    @Size(max=255)
     private String number;
 
     @NotNull

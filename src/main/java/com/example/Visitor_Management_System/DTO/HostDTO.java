@@ -17,6 +17,9 @@ public class HostDTO {
     private String name;
 
     @NotNull
+    private Flat flat;
+
+    @NotNull
     @Size(max = 255)
     private String number;
 
@@ -27,5 +30,4 @@ public class HostDTO {
     @NotNull
     private HostStatus status;
 
-    private Flat flat;
 }

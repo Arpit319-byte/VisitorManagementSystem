@@ -27,15 +27,15 @@ public class Host {
     @Column(nullable = false)
     private String hostName;
 
+    @OneToOne
+    @JoinColumn(name = "flat_id", referencedColumnName = "flatId", nullable = false)
+    private Flat flat;
+
     @Column(nullable = false, unique = true)
     private String hostEmail;
 
     @Column(nullable = false, unique = true)
     private String hostPhoneNumber;
-
-    @OneToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "addressId", nullable = false)
-    private Address address;
 
     @CreatedDate
     @Column(nullable = false)

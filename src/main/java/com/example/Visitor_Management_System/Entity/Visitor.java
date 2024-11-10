@@ -47,6 +47,6 @@ public class Visitor {
 
     @LastModifiedDate
     @Column(nullable = false)
-    private LocalDateTime UpdatedAt;
+    private LocalDateTime updatedAt;
 
 }

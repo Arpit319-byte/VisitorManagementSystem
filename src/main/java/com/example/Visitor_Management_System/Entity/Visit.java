@@ -1,6 +1,7 @@
 package com.example.Visitor_Management_System.Entity;
 
 
+import com.example.Visitor_Management_System.DTO.VisitStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +28,23 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long visitId;
 
-    private Long visitorId;
+    @ManyToOne
+    @JoinColumn(name = "visitorId",referencedColumnName = "visitorId",nullable = false)
+    private Visitor visitor;
 
-    private Long hostId;
+    @ManyToOne
+    @JoinColumn(name = "hostId",referencedColumnName = "hostId",nullable = false)
+    private Host host;
+
+    @Column(nullable = false)
+    private String flatNumber;
 
     @Column(nullable = false)
     private String purposeOfVisit;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private VisitStatus visitStatus;
 
     @Column(nullable = false)
     private LocalDateTime checkInTime;
@@ -46,5 +58,5 @@ public class Visit {
 
     @LastModifiedDate
     @Column(nullable = false)
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 }
