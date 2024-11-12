@@ -1,5 +1,6 @@
 package com.example.Visitor_Management_System.Entity;
 
+import com.example.Visitor_Management_System.DTO.HostStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,10 @@ public class Host {
 
     @Column(nullable = false, unique = true)
     private String hostPhoneNumber;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private HostStatus status;
 
     @CreatedDate
     @Column(nullable = false)

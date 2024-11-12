@@ -21,7 +21,7 @@ public class HostDTO {
 
     @NotNull
     @Size(max = 255)
-    private String number;
+    private String phoneNumber;
 
     @NotNull
     @Size(max = 255)

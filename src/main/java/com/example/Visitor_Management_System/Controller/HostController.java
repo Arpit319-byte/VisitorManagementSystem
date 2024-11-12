@@ -54,6 +54,7 @@ public class HostController {
 
         HostDTO hostDTO = hostService.getById(id);
         if (hostDTO != null){
+            hostService.deleteHost(id);
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
