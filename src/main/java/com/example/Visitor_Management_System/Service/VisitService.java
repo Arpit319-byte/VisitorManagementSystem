@@ -1,9 +1,8 @@
 package com.example.Visitor_Management_System.Service;
 
 import com.example.Visitor_Management_System.DTO.VisitDTO;
-import com.example.Visitor_Management_System.DTO.VisitorDTO;
+import com.example.Visitor_Management_System.DTO.VisitStatus;
 import com.example.Visitor_Management_System.Entity.Visit;
-import com.example.Visitor_Management_System.Entity.Visitor;
 import com.example.Visitor_Management_System.Repository.VisitRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.awt.*;
 
 
 @Service
@@ -47,7 +46,9 @@ public class VisitService {
     @Transactional
     public Long createVisit(VisitDTO visitDTO) {
         logger.info("Creating new visit");
-        Visit visit = mapToEntity(visitDTO, new Visit());
+        Visit visit = new Visit();
+        visitDTO.setVisitStatus(VisitStatus.WAITING);
+        mapToEntity(visitDTO, visit);
         return visitRepository.save(visit).getVisitId();
     }
 
@@ -55,7 +56,7 @@ public class VisitService {
     public VisitDTO updateVisit(VisitDTO visitDTO) {
         logger.info("Updating visit with id: {}", visitDTO.getId());
         Visit visit = visitRepository.findById(visitDTO.getId()).orElseThrow();
-        visit = mapToEntity(visitDTO, visit);
+        mapToEntity(visitDTO, visit);
         return mapToDTO(visitRepository.save(visit), visitDTO);
     }
 
@@ -63,6 +64,34 @@ public class VisitService {
     public void deleteById(Long id) {
         logger.info("Deleting visit with id: {}", id);
         visitRepository.deleteById(id);
+    }
+
+    public void updateInTime(Long id) {
+        Visit visit = visitRepository.findById(id).orElseThrow(null);
+
+        if(visit == null){
+            logger.error("Visit with id: {} not found", id);
+            throw new NotFoundException();
+        }
+
+        if(visit.getVisitStatus().equals(VisitStatus.WAITING)) {
+            visit.setCheckInTime(LocalDateTime.now());
+            visit.setVisitStatus(VisitStatus.APPROVED);
+            visitRepository.save(visit);
+        }
+    }
+
+    public void updateOutTime(Long id) {
+        Visit visit=visitRepository.findById(id).orElse(null);
+
+        if(visit == null){
+            throw new NotFoundException();
+        }
+
+        if(visit.getVisitStatus().equals(VisitStatus.APPROVED)){
+            visit.setCheckOutTime(LocalDateTime.now());
+            visitRepository.save(visit);
+        }
     }
 
      private VisitDTO mapToDTO(final Visit visit, final VisitDTO visitDTO){
@@ -77,7 +106,7 @@ public class VisitService {
          return visitDTO;
      }
 
-        private Visit mapToEntity(final VisitDTO visitDTO, final Visit visit){
+        private void mapToEntity(final VisitDTO visitDTO, final Visit visit){
             visit.setVisitId(visitDTO.getId());
             visit.setVisitId(visitDTO.getHostId());
             visit.setVisitId(visitDTO.getVisitorId());
@@ -86,7 +115,6 @@ public class VisitService {
             visit.setVisitStatus(visitDTO.getVisitStatus());
             visit.setCheckInTime(visitDTO.getInTime());
             visit.setCheckOutTime(visitDTO.getOutTime());
-            return visit;
         }
 
 }
