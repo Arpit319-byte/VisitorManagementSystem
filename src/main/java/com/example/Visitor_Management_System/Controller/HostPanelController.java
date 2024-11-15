@@ -22,16 +22,18 @@ public class HostPanelController {
 
     @GetMapping("/allPendingVisits")
     public ResponseEntity<List<VisitDTO>> getAllPendingVisits(){
-
+        return ResponseEntity.ok(visitService.findAllPendingVisits());
     }
 
     @PutMapping("/approveVisit/{visitId}")
     public ResponseEntity<Void> approveVisit(@PathVariable(name ="visitId") Long id){
-        return ResponseEntity.ok(visitService.approveVisit(id));
+        visitService.approveVisit(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/rejectVisit/{visitId}")
     public ResponseEntity<Void> rejectVisit(@PathVariable(name ="visitId") Long id){
-        return ResponseEntity.ok(visitService.rejectVisit(id));
+        visitService.rejectVisit(id);
+        return ResponseEntity.ok().build();
     }
 }

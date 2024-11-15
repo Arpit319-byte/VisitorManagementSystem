@@ -4,6 +4,7 @@ import com.example.Visitor_Management_System.DTO.VisitDTO;
 import com.example.Visitor_Management_System.DTO.VisitStatus;
 import com.example.Visitor_Management_System.Entity.Visit;
 import com.example.Visitor_Management_System.Repository.VisitRepository;
+import com.example.Visitor_Management_System.Util.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +71,7 @@ public class VisitService {
         Visit visit = visitRepository.findById(id).orElseThrow(null);
 
         if(visit == null){
-            logger.error("Visit with id: {} not found", id);
-            throw new NotFoundException();
+            throw new NotFoundException("Visit with id: " + id + " not found");
         }
 
         if(visit.getVisitStatus().equals(VisitStatus.WAITING)) {
@@ -85,13 +85,43 @@ public class VisitService {
         Visit visit=visitRepository.findById(id).orElse(null);
 
         if(visit == null){
-            throw new NotFoundException();
+            throw new NotFoundException("Visit with id: " + id + " not found");
         }
 
         if(visit.getVisitStatus().equals(VisitStatus.APPROVED)){
             visit.setCheckOutTime(LocalDateTime.now());
             visitRepository.save(visit);
         }
+    }
+
+    public List<VisitDTO> findAllPendingVisits() {
+        logger.info("Fetching all pending Visits");
+        List<Visit> visits = visitRepository.findAllByVisitStatus(VisitStatus.WAITING);
+        return visits.stream()
+                .map(visit -> mapToDTO(visit, new VisitDTO()))
+                .toList();
+    }
+
+    public void approveVisit(Long id) {
+        Visit visit = visitRepository.findById(id).orElse(null);
+
+        if(visit == null){
+            throw new NotFoundException("Visit with id: " + id + " not found");
+        }
+
+        visit.setVisitStatus(VisitStatus.APPROVED);
+        visitRepository.save(visit);
+    }
+
+    public void rejectVisit(Long id) {
+        Visit visit = visitRepository.findById(id).orElse(null);
+
+        if(visit == null){
+            throw new NotFoundException("Visit with id: " + id + " not found");
+        }
+
+        visit.setVisitStatus(VisitStatus.REJECTED);
+        visitRepository.save(visit);
     }
 
      private VisitDTO mapToDTO(final Visit visit, final VisitDTO visitDTO){
