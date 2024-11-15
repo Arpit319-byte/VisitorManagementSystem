@@ -20,10 +20,10 @@ public class Visitor {
     @Id
     @Column(nullable=false,updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long visitorId;
+    private Long id;
 
     @Column(nullable = false)
-    private String visitorName;
+    private String name;
 
     @Column(nullable = false,unique = true)
     private String email;

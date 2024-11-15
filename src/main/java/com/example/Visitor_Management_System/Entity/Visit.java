@@ -49,7 +49,7 @@ public class Visit {
     @Column(nullable = false)
     private LocalDateTime checkInTime;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime checkOutTime;
 
     @CreatedDate

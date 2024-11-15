@@ -21,7 +21,7 @@ public class VisitorDTO {
 
     @NotNull
     @Size(max=255)
-    private String number;
+    private String PhoneNumber;
 
     @NotNull
     @Size(max=255)
