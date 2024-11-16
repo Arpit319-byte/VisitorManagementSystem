@@ -29,7 +29,7 @@ public class Visit {
     private Long visitId;
 
     @ManyToOne
-    @JoinColumn(name = "visitorId",referencedColumnName = "visitorId",nullable = false)
+    @JoinColumn(name = "visitorId",referencedColumnName = "id",nullable = false)
     private Visitor visitor;
 
     @ManyToOne

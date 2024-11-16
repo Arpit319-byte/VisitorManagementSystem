@@ -1,5 +1,6 @@
 package com.example.Visitor_Management_System.DTO;
 
+import com.example.Visitor_Management_System.Entity.Address;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -21,7 +22,10 @@ public class VisitorDTO {
 
     @NotNull
     @Size(max=255)
-    private String PhoneNumber;
+    private String phoneNumber;
+
+    @NotNull
+    private Address address;
 
     @NotNull
     @Size(max=255)
