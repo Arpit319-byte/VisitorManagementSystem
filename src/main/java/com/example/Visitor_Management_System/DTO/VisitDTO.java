@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class VisitDTO {
 
-    @NotNull
+
     private Long id;
 
     @NotNull

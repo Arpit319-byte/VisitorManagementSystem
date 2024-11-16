@@ -2,7 +2,11 @@ package com.example.Visitor_Management_System.DTO;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class AddressDTO {
 
     @NotNull
